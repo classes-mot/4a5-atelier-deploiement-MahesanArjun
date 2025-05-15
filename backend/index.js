@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 //express et mongoose
 import express from 'express';
 import { connectDB } from './util/bd.js';
@@ -5,15 +7,17 @@ import { connectDB } from './util/bd.js';
 import messageRoutes from './routes/messages-routes.js';
 
 
-const MONGODB_URI = 'mongodb://localhost:27017/db-deploy';
+
 
 // Connexion à MongoDB
-await connectDB(MONGODB_URI);
+await connectDB(process.env.MONGODB_URI);
 
 
 const app = express();
 // chercher les variables d'environnemnt
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/db-deploy';
+
 // section des middlewares
 
 app.use(express.json());
